@@ -7456,3 +7456,36 @@ img[src*="MoniqueBreuer"] {
         width: 100%;
     }
 }
+
+/* iOS stability guard for the lightweight Karriere page */
+@media (max-width: 767px), (hover: none) and (pointer: coarse) {
+    .career-page::before,
+    .career-page::after,
+    .career-main::before,
+    .career-main::after {
+        display: none;
+    }
+
+    .career-main {
+        overflow: clip;
+        background: linear-gradient(180deg, #f8fcff 0%, #edf7ff 100%);
+    }
+
+    .career-page .site-header {
+        background: #fff;
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+    }
+
+    .career-job-card,
+    .career-benefit-card {
+        background: #fff;
+        box-shadow: 0 10px 26px rgba(20, 58, 92, 0.1);
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+    }
+
+    .career-icon {
+        box-shadow: 0 8px 18px rgba(7, 88, 184, 0.08);
+    }
+}
