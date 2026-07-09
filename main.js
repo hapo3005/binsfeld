@@ -5,6 +5,8 @@
     const contactForm = document.querySelector("#contactForm");
     const formNote = document.querySelector("#formNote");
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const isTouchOrSmallScreen = window.matchMedia("(max-width: 767px), (hover: none) and (pointer: coarse)").matches;
+    const isTeamPage = document.body.classList.contains("team-page");
 
     if (yearElement) {
         yearElement.textContent = new Date().getFullYear();
@@ -46,7 +48,9 @@
         updateScrollTopButton();
     }
 
-    createScrollTopButton();
+    if (!isTouchOrSmallScreen) {
+        createScrollTopButton();
+    }
 
     function closeMobileNavigation() {
         const openMenu = document.querySelector(".navbar-collapse.show");
@@ -76,7 +80,7 @@
         link.addEventListener("click", closeMobileNavigation);
     });
 
-    if (prefersReducedMotion) {
+    if (prefersReducedMotion || isTouchOrSmallScreen) {
         revealElements.forEach((element) => element.classList.add("is-visible"));
     } else if ("IntersectionObserver" in window) {
         const revealObserver = new IntersectionObserver(
@@ -261,6 +265,12 @@
         const dotsWrap = slider.querySelector(".dots");
 
         if (!cards.length || !dotsWrap) return;
+
+        if (isTouchOrSmallScreen) {
+            document.documentElement.classList.add("team-static");
+            cards.forEach((card) => card.setAttribute("aria-hidden", "false"));
+            return;
+        }
 
         let activeIndex = 0;
         let pointerStartX = null;
@@ -593,6 +603,11 @@
     }
 
     function createSwipers() {
+        if (isTeamPage) {
+            document.documentElement.classList.add("no-swiper");
+            return;
+        }
+
         if (typeof Swiper === "undefined") {
             document.documentElement.classList.add("no-swiper");
             return;

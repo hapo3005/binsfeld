@@ -7489,3 +7489,114 @@ img[src*="MoniqueBreuer"] {
         box-shadow: 0 8px 18px rgba(7, 88, 184, 0.08);
     }
 }
+
+/* iPhone stability guard for the image-heavy Team page */
+@media (max-width: 767px), (hover: none) and (pointer: coarse) {
+    .team-page::before,
+    .team-page::after,
+    .team-main::before,
+    .team-main::after {
+        display: none;
+    }
+
+    .team-page .site-header {
+        background: #fff;
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+    }
+
+    .team-main {
+        overflow: clip;
+        background: linear-gradient(180deg, #f8fcff 0%, #edf7ff 100%);
+    }
+
+    .team-slider {
+        padding: 34px 14px 42px;
+        background: #082f49;
+        overflow: visible;
+    }
+
+    .team-slider .coverflow,
+    .team-slider .cards {
+        width: min(100%, 360px);
+        height: auto;
+        perspective: none;
+        cursor: default;
+        touch-action: auto;
+    }
+
+    .team-slider .cards {
+        display: grid;
+        gap: 14px;
+    }
+
+    .team-slider .card,
+    .team-slider .card.is-active,
+    .team-slider .card.is-prev,
+    .team-slider .card.is-next,
+    .team-slider .card.is-far-prev,
+    .team-slider .card.is-far-next {
+        position: static;
+        width: 100%;
+        min-height: 0;
+        opacity: 1;
+        pointer-events: auto;
+        transform: none;
+        transform-style: flat;
+        transition: none;
+        box-shadow: 0 10px 26px rgba(0, 0, 0, 0.16);
+    }
+
+    .team-slider .nav,
+    .team-slider .dots {
+        display: none;
+    }
+
+    .no-swiper .lab-swiper,
+    .no-swiper .hygiene-swiper,
+    .no-swiper .assistant-swiper,
+    .no-swiper .zfa-swiper {
+        width: calc(100% - 28px);
+        padding: 10px 0 18px;
+        overflow: visible;
+    }
+
+    .no-swiper .lab-swiper .swiper-wrapper,
+    .no-swiper .hygiene-swiper .swiper-wrapper,
+    .no-swiper .assistant-swiper .swiper-wrapper,
+    .no-swiper .zfa-swiper .swiper-wrapper {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 14px;
+        width: 100%;
+        transform: none !important;
+        transition: none;
+    }
+
+    .no-swiper .lab-slide,
+    .single-member-card {
+        width: 100%;
+        min-height: 0;
+        padding: 22px 18px 24px;
+        border-radius: 8px;
+        background: #fff;
+        opacity: 1;
+        transform: none;
+        transition: none;
+        box-shadow: 0 10px 24px rgba(20, 58, 92, 0.1);
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+    }
+
+    .lab-photo {
+        width: 126px;
+        height: 126px;
+        margin-bottom: 18px;
+    }
+
+    .lab-prev,
+    .lab-next,
+    .lab-pagination {
+        display: none;
+    }
+}
