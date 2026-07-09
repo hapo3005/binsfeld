@@ -6,7 +6,6 @@
     const formNote = document.querySelector("#formNote");
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const isTouchOrSmallScreen = window.matchMedia("(max-width: 767px), (hover: none) and (pointer: coarse)").matches;
-    const isTeamPage = document.body.classList.contains("team-page");
 
     if (yearElement) {
         yearElement.textContent = new Date().getFullYear();
@@ -266,12 +265,6 @@
 
         if (!cards.length || !dotsWrap) return;
 
-        if (isTouchOrSmallScreen) {
-            document.documentElement.classList.add("team-static");
-            cards.forEach((card) => card.setAttribute("aria-hidden", "false"));
-            return;
-        }
-
         let activeIndex = 0;
         let pointerStartX = null;
         let pointerStartY = null;
@@ -429,41 +422,19 @@
         return [...wrapper.children].filter((child) => child.classList.contains("swiper-slide"));
     }
 
-    function prepareSeamlessSlides(swiperElement, sideSets = 5) {
+    function prepareSeamlessSlides(swiperElement, sideSets = 0) {
         const wrapper = swiperElement.querySelector(".swiper-wrapper");
 
         if (!wrapper) {
             return { originalCount: 0, centerStart: 0, sideSets };
         }
 
-        const originalSlides = getDirectSlides(wrapper).map((slide) => slide.cloneNode(true));
-        const originalCount = originalSlides.length;
+        const slides = getDirectSlides(wrapper);
+        slides.forEach((slide, realIndex) => {
+            slide.dataset.realIndex = String(realIndex);
+        });
 
-        if (originalCount <= 1) {
-            return { originalCount, centerStart: 0, sideSets };
-        }
-
-        wrapper.innerHTML = "";
-
-        const totalSets = sideSets * 2 + 1;
-        const centerSet = sideSets;
-
-        for (let setIndex = 0; setIndex < totalSets; setIndex += 1) {
-            originalSlides.forEach((originalSlide, realIndex) => {
-                const slide = originalSlide.cloneNode(true);
-                slide.dataset.realIndex = String(realIndex);
-                slide.dataset.loopSet = String(setIndex);
-
-                if (setIndex !== centerSet) {
-                    slide.dataset.loopClone = "true";
-                    slide.setAttribute("aria-hidden", "true");
-                }
-
-                wrapper.appendChild(slide);
-            });
-        }
-
-        return { originalCount, centerStart: originalCount * centerSet, sideSets };
+        return { originalCount: slides.length, centerStart: 0, sideSets };
     }
 
     function getRealIndex(swiper, originalCount) {
@@ -534,7 +505,7 @@
         const element = typeof target === "string" ? document.querySelector(target) : target;
         if (!element) return null;
 
-        const config = prepareSeamlessSlides(element, 5);
+        const config = prepareSeamlessSlides(element, 0);
         const prev = element.querySelector(".swiper-button-prev");
         const next = element.querySelector(".swiper-button-next");
 
@@ -564,7 +535,7 @@
             effect: "coverflow",
             watchSlidesProgress: true,
             loop: false,
-            rewind: false,
+            rewind: true,
             initialSlide: safeInitialSlide,
             keyboard: {
                 enabled: true,
@@ -603,11 +574,6 @@
     }
 
     function createSwipers() {
-        if (isTeamPage) {
-            document.documentElement.classList.add("no-swiper");
-            return;
-        }
-
         if (typeof Swiper === "undefined") {
             document.documentElement.classList.add("no-swiper");
             return;
