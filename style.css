@@ -7687,3 +7687,17 @@ img[src*="MoniqueBreuer"] {
         display: flex;
     }
 }
+
+/* Site-wide mobile Safari stability: avoid fixed paint layers and glass blur on touch devices. */
+@media (max-width: 767px), (hover: none) and (pointer: coarse) {
+    body::before,
+    body::after {
+        display: none;
+    }
+
+    .site-header {
+        background: #fff;
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+    }
+}
