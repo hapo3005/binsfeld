@@ -422,44 +422,63 @@
         return [...wrapper.children].filter((child) => child.classList.contains("swiper-slide"));
     }
 
-    function prepareSeamlessSlides(swiperElement, sideSets = 0) {
+    function prepareSeamlessSlides(swiperElement, sideSets = 1) {
         const wrapper = swiperElement.querySelector(".swiper-wrapper");
 
         if (!wrapper) {
             return { originalCount: 0, centerStart: 0, sideSets };
         }
 
-        const slides = getDirectSlides(wrapper);
-        slides.forEach((slide, realIndex) => {
-            slide.dataset.realIndex = String(realIndex);
-        });
+        const originalSlides = getDirectSlides(wrapper).map((slide) => slide.cloneNode(true));
+        const originalCount = originalSlides.length;
 
-        return { originalCount: slides.length, centerStart: 0, sideSets };
+        if (originalCount <= 1) {
+            return { originalCount, centerStart: 0, sideSets };
+        }
+
+        wrapper.innerHTML = "";
+
+        const totalSets = sideSets * 2 + 1;
+
+        for (let setIndex = 0; setIndex < totalSets; setIndex += 1) {
+            originalSlides.forEach((originalSlide, realIndex) => {
+                const slide = originalSlide.cloneNode(true);
+                slide.dataset.realIndex = String(realIndex);
+                slide.dataset.loopSet = String(setIndex);
+
+                if (setIndex !== sideSets) {
+                    slide.dataset.loopClone = "true";
+                    slide.setAttribute("aria-hidden", "true");
+                }
+
+                wrapper.appendChild(slide);
+            });
+        }
+
+        return { originalCount, centerStart: originalCount * sideSets, sideSets };
     }
 
     function getRealIndex(swiper, originalCount) {
         if (!swiper || !swiper.slides || !swiper.slides.length || originalCount <= 0) return 0;
-
-        if (Number.isInteger(swiper.realIndex)) {
-            return positiveModulo(swiper.realIndex, originalCount);
-        }
 
         const activeSlide = swiper.slides[swiper.activeIndex];
         const realIndex = Number(activeSlide && activeSlide.dataset ? activeSlide.dataset.realIndex : undefined);
 
         if (Number.isInteger(realIndex)) return positiveModulo(realIndex, originalCount);
 
+        if (Number.isInteger(swiper.realIndex)) {
+            return positiveModulo(swiper.realIndex, originalCount);
+        }
+
         return positiveModulo(swiper.activeIndex, originalCount);
     }
 
     function normalizeSeamlessPosition(swiper, config) {
         if (!swiper || !config || config.originalCount <= 1) return;
-        if (swiper.params && swiper.params.loop) return;
-
         const { originalCount, centerStart } = config;
         const realIndex = getRealIndex(swiper, originalCount);
-        const safeStart = centerStart - originalCount * 2;
-        const safeEnd = centerStart + originalCount * 3 - 1;
+        const safeStart = centerStart;
+        const safeEnd = centerStart + originalCount - 1;
 
         if (swiper.activeIndex < safeStart || swiper.activeIndex > safeEnd) {
             swiper.slideTo(centerStart + realIndex, 0, false);
@@ -514,13 +533,13 @@
         const element = typeof target === "string" ? document.querySelector(target) : target;
         if (!element) return null;
 
-        const config = prepareSeamlessSlides(element, 0);
+        const config = prepareSeamlessSlides(element, 1);
         const prev = element.querySelector(".swiper-button-prev");
         const next = element.querySelector(".swiper-button-next");
 
         const {
-            initialSlide = 0,
-            loop = false,
+            initialSlide,
+            loop,
             loopedSlides,
             loopAdditionalSlides,
             pagination,
@@ -528,8 +547,10 @@
             ...swiperOptions
         } = options;
 
+        const middleSlide = Math.floor((config.originalCount - 1) / 2);
+        const requestedInitialSlide = Number.isInteger(initialSlide) ? initialSlide : middleSlide;
         const safeInitialSlide = config.originalCount > 1
-            ? positiveModulo(initialSlide, config.originalCount)
+            ? config.centerStart + positiveModulo(requestedInitialSlide, config.originalCount)
             : 0;
 
         const swiper = new Swiper(element, {
@@ -543,9 +564,8 @@
             slidesPerView: "auto",
             effect: "coverflow",
             watchSlidesProgress: true,
-            loop,
-            rewind: !loop,
-            loopAdditionalSlides: loop ? Math.max(config.originalCount, 2) : 0,
+            loop: false,
+            rewind: false,
             initialSlide: safeInitialSlide,
             keyboard: {
                 enabled: true,
@@ -636,8 +656,6 @@
         });
 
         createSeamlessSwiper(".lab-swiper", {
-            initialSlide: 1,
-            loop: true,
             autoplay: false,
             centeredSlides: true,
             slidesPerView: 1.08,
@@ -648,9 +666,9 @@
                 1100: { slidesPerView: 3, spaceBetween: 24 }
             }
         });
-        createSeamlessSwiper(".hygiene-swiper", { initialSlide: 1 });
-        createSeamlessSwiper(".assistant-swiper", { initialSlide: 1 });
-        createSeamlessSwiper(".zfa-swiper", { initialSlide: 0 });
+        createSeamlessSwiper(".hygiene-swiper");
+        createSeamlessSwiper(".assistant-swiper");
+        createSeamlessSwiper(".zfa-swiper");
     }
 
     if (contactForm) {
