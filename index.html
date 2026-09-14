@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
     <title>Zahnärzte Binsfeld | Gemeinschaftspraxis</title>
 
@@ -11,15 +11,11 @@
         content="Moderne Zahnarztpraxis in Binsfeld. Persönliche Betreuung, Prophylaxe, Zahnerhalt, Zahnersatz und ästhetische Zahnmedizin.">
     <meta name="theme-color" content="#063b63">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;800;900&display=swap"
-        rel="stylesheet">
     <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
     <link rel="preload" as="image" href="images/hero-900.jpg" media="(max-width: 767px)">
     <link rel="preload" as="image" href="images/hero-1600.jpg" media="(min-width: 768px)">
     <link rel="stylesheet" href="style.css?v=20260709-site-ios-audit">
+    <link rel="stylesheet" href="home.css?v=20260914-home-kiss-1">
     <script type="application/ld+json">
         {
             "@context": "https://schema.org",
@@ -106,27 +102,21 @@
                         <li class="nav-item">
                             <a class="nav-link" href="team.html">Team</a>
                         </li>
-
                         <li class="nav-item">
                             <a class="nav-link" href="leistungen.html">Leistungen</a>
                         </li>
-
                         <li class="nav-item">
                             <a class="nav-link" href="impressionen.html">Impressionen</a>
                         </li>
-
                         <li class="nav-item">
                             <a class="nav-link" href="links-infos.html">Links &amp; Infos</a>
                         </li>
-
                         <li class="nav-item">
                             <a class="nav-link" href="kontakt.html">Kontakt</a>
                         </li>
-
                         <li class="nav-item">
                             <a class="nav-link" href="karriere.html">Karriere</a>
                         </li>
-
                         <li class="nav-item nav-cta-item">
                             <a class="btn btn-brand nav-appointment" href="kontakt.html#kontakt-form">Terminanfragen</a>
                         </li>
@@ -137,6 +127,36 @@
     </header>
 
     <main id="main-content">
+        <section class="home-intro" aria-labelledby="home-intro-title">
+            <div class="home-intro-shell">
+                <div class="home-intro-copy">
+                    <span class="home-intro-kicker">Ihre Zahnarztpraxis in Binsfeld</span>
+                    <h1 id="home-intro-title">Moderne Zahnmedizin, eigenes Praxislabor und persönliche Betreuung seit 1985.</h1>
+                    <p>Eigene Zahntechnik vor Ort, kurze Wege und ein großes erfahrenes Team für Ihre Zahngesundheit.</p>
+
+                    <div class="home-intro-actions" aria-label="Schnelleinstieg">
+                        <a class="btn btn-brand" href="kontakt.html#kontakt-form">Termin anfragen</a>
+                        <a class="home-intro-secondary" href="leistungen.html">Leistungen ansehen</a>
+                    </div>
+
+                    <div class="home-intro-points" aria-label="Praxisvorteile">
+                        <span>Eigene Zahntechnik vor Ort</span>
+                        <span>Kurze Wege</span>
+                        <span>Persönliche Behandlung</span>
+                    </div>
+                </div>
+
+                <figure class="home-intro-media">
+                    <img src="images/hero-1600.jpg"
+                        srcset="images/hero-900.jpg 900w, images/hero-1600.jpg 1600w"
+                        sizes="(max-width: 900px) calc(100vw - 28px), 58vw"
+                        width="1600" height="686"
+                        alt="Team der Zahnarztpraxis Binsfeld vor der Praxis"
+                        decoding="async" fetchpriority="high">
+                </figure>
+            </div>
+        </section>
+
         <section class="home-info-strip" aria-label="Öffnungszeiten und Telefonnummer">
             <div class="home-info-inner">
                 <div class="home-info-hours">
@@ -167,40 +187,11 @@
             </div>
         </section>
 
-        <section class="home-hero home-hero-premium home-hero-image-only">
-            <div class="home-hero-bg">
-                <img src="images/hero-1600.jpg"
-                    srcset="images/hero-900.jpg 900w, images/hero-1600.jpg 1600w" sizes="100vw"
-                    width="1600" height="686" alt="Team der Zahnarztpraxis Binsfeld vor der Praxis"
-                    decoding="async" fetchpriority="high">
-            </div>
-        </section>
-
-        <section class="home-positioning" aria-labelledby="home-positioning-title">
-            <div class="home-positioning-shell">
-                <div class="home-positioning-copy reveal">
-                    <span>Ihre Zahnarztpraxis in Binsfeld</span>
-                    <h1 id="home-positioning-title">Moderne Zahnmedizin, eigenes Praxislabor und pers&ouml;nliche Betreuung seit 1985.</h1>
-                    <p>Eigene Zahntechnik vor Ort, kurze Wege und ein gro&szlig;es erfahrenes Team f&uuml;r Ihre Zahngesundheit.</p>
-                    <div class="home-positioning-points" aria-label="Praxisvorteile">
-                        <span>Eigene Zahntechnik vor Ort</span>
-                        <span>Kurze Wege</span>
-                        <span>Pers&ouml;nliche Behandlung</span>
-                    </div>
-                </div>
-
-                <div class="home-positioning-actions reveal" aria-label="Kontaktm&ouml;glichkeiten">
-                    <a class="btn btn-brand" href="kontakt.html#kontakt-form">Termin anfragen</a>
-                    <a class="home-call-button" href="tel:+4965754634">Jetzt anrufen</a>
-                </div>
-            </div>
-        </section>
-
         <section class="home-quicklinks" aria-label="Schnelleinstieg">
             <div class="home-quicklinks-grid">
                 <a class="home-feature-card reveal" href="leistungen.html">
                     <span class="home-feature-image">
-                        <img src="images/zahnheilkunde.jpg" alt="Zahn&auml;rztliche Behandlung in der Praxis"
+                        <img src="images/zahnheilkunde.jpg" alt="Zahnärztliche Behandlung in der Praxis"
                             decoding="async" loading="lazy">
                     </span>
                     <span class="home-feature-copy">
@@ -211,7 +202,7 @@
                             </svg>
                         </span>
                         <strong>Leistungen</strong>
-                        <span>Informieren Sie sich jetzt &uuml;ber unsere Leistungen.</span>
+                        <span>Informieren Sie sich jetzt über unsere Leistungen.</span>
                     </span>
                     <span class="home-feature-arrow" aria-hidden="true">
                         <svg viewBox="0 0 24 24">
@@ -285,7 +276,7 @@
                         </svg>
                     </span>
                     <strong>5</strong>
-                    <span>Zahn&auml;rzte</span>
+                    <span>Zahnärzte</span>
                 </div>
 
                 <div class="home-stat-item">
@@ -328,30 +319,29 @@
             <div class="home-reviews-shell">
                 <div class="home-reviews-intro reveal">
                     <span>Vertrauen im Praxisalltag</span>
-                    <h2>Ruhig beraten.<br>Sorgf&auml;ltig behandeln.</h2>
-                    <p>Wir verbinden digitale Diagnostik, zahntechnische Kompetenz im eigenen Labor und eine pers&ouml;nliche Betreuung auf Augenh&ouml;he.</p>
+                    <h2>Ruhig beraten.<br>Sorgfältig behandeln.</h2>
+                    <p>Wir verbinden digitale Diagnostik, zahntechnische Kompetenz im eigenen Labor und eine persönliche Betreuung auf Augenhöhe.</p>
                     <a href="kontakt.html#kontakt-form">Termin anfragen</a>
                 </div>
 
                 <div class="home-review-cards" aria-label="Praxisvorteile">
                     <article class="home-review-card reveal">
-                        <h3>Pers&ouml;nliche Betreuung</h3>
-                        <p>Klare Beratung, verst&auml;ndliche Behandlungswege und ein Team, das sich Zeit f&uuml;r Ihre Fragen nimmt.</p>
+                        <h3>Persönliche Betreuung</h3>
+                        <p>Klare Beratung, verständliche Behandlungswege und ein Team, das sich Zeit für Ihre Fragen nimmt.</p>
                     </article>
 
                     <article class="home-review-card reveal">
                         <h3>Eigenes Praxislabor</h3>
-                        <p>Zahntechnik direkt vor Ort sorgt f&uuml;r kurze Abstimmungen und passgenaue L&ouml;sungen aus einer Hand.</p>
+                        <p>Zahntechnik direkt vor Ort sorgt für kurze Abstimmungen und passgenaue Lösungen aus einer Hand.</p>
                     </article>
 
                     <article class="home-review-card reveal">
                         <h3>Moderne Diagnostik</h3>
-                        <p>Digitale Abformung, digitales R&ouml;ntgen und DVT unterst&uuml;tzen pr&auml;zise Planung und schonende Abl&auml;ufe.</p>
+                        <p>Digitale Abformung, digitales Röntgen und DVT unterstützen präzise Planung und schonende Abläufe.</p>
                     </article>
                 </div>
             </div>
         </section>
-
     </main>
 
     <footer class="site-footer leistungen-footer practice-footer">
@@ -365,8 +355,8 @@
                         </svg>
                     </span>
                     <h3>Anschrift</h3>
-                    <p><strong>Zahn&auml;rzte Binsfeld</strong><br>Gemeinschaftspraxis (BAG)<br>Dr. med. dent. Heinz Weber<br>Dr. med. dent. Stefan Schell</p>
-                    <p class="footer-divider">Bahnhofstra&szlig;e 10<br>54518 Binsfeld</p>
+                    <p><strong>Zahnärzte Binsfeld</strong><br>Gemeinschaftspraxis (BAG)<br>Dr. med. dent. Heinz Weber<br>Dr. med. dent. Stefan Schell</p>
+                    <p class="footer-divider">Bahnhofstraße 10<br>54518 Binsfeld</p>
                 </section>
 
                 <section class="leistungen-footer-col">
@@ -395,7 +385,7 @@
             </div>
 
             <div class="practice-legal">
-                <span>&copy; <span id="year"></span> Zahn&auml;rzte Binsfeld. Alle Rechte vorbehalten.</span>
+                <span>&copy; <span id="year"></span> Zahnärzte Binsfeld. Alle Rechte vorbehalten.</span>
                 <nav aria-label="Rechtliches">
                     <a href="/impressum/">Impressum</a>
                     <a href="/datenschutz/">Datenschutz</a>
@@ -403,7 +393,7 @@
             </div>
         </div>
     </footer>
-    <script src="main.js?v=20260709-site-ios-audit" defer></script>
+    <script src="main.js?v=20260914-home-kiss-1" defer></script>
 </body>
 
 </html>
