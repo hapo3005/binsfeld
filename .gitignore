@@ -1,3 +1,5 @@
 .chrome-*/
 .DS_Store
 Thumbs.db
+*-check.png
+iphone-*-check.png
