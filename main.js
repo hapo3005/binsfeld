@@ -638,7 +638,15 @@
         createSeamlessSwiper(".lab-swiper", {
             initialSlide: 1,
             loop: true,
-            autoplay: false
+            autoplay: false,
+            centeredSlides: true,
+            slidesPerView: 1.08,
+            spaceBetween: 18,
+            breakpoints: {
+                576: { slidesPerView: 1.35, spaceBetween: 18 },
+                768: { slidesPerView: 2.05, spaceBetween: 20 },
+                1100: { slidesPerView: 3, spaceBetween: 24 }
+            }
         });
         createSeamlessSwiper(".hygiene-swiper", { initialSlide: 1 });
         createSeamlessSwiper(".assistant-swiper", { initialSlide: 1 });
