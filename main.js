@@ -625,7 +625,7 @@
             });
         });
 
-        createSeamlessSwiper(".lab-swiper", { autoplay: false });
+        createSeamlessSwiper(".lab-swiper", { initialSlide: 1, autoplay: false });
         createSeamlessSwiper(".hygiene-swiper", { initialSlide: 1 });
         createSeamlessSwiper(".assistant-swiper", { initialSlide: 1 });
         createSeamlessSwiper(".zfa-swiper", { initialSlide: 0 });
