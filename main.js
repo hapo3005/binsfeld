@@ -440,16 +440,21 @@
     function getRealIndex(swiper, originalCount) {
         if (!swiper || !swiper.slides || !swiper.slides.length || originalCount <= 0) return 0;
 
+        if (Number.isInteger(swiper.realIndex)) {
+            return positiveModulo(swiper.realIndex, originalCount);
+        }
+
         const activeSlide = swiper.slides[swiper.activeIndex];
         const realIndex = Number(activeSlide && activeSlide.dataset ? activeSlide.dataset.realIndex : undefined);
 
-        if (Number.isInteger(realIndex)) return realIndex;
+        if (Number.isInteger(realIndex)) return positiveModulo(realIndex, originalCount);
 
         return positiveModulo(swiper.activeIndex, originalCount);
     }
 
     function normalizeSeamlessPosition(swiper, config) {
         if (!swiper || !config || config.originalCount <= 1) return;
+        if (swiper.params && swiper.params.loop) return;
 
         const { originalCount, centerStart } = config;
         const realIndex = getRealIndex(swiper, originalCount);
@@ -477,7 +482,11 @@
             bullet.setAttribute("aria-label", `Slide ${index + 1} anzeigen`);
 
             bullet.addEventListener("click", () => {
-                swiper.slideTo(config.centerStart + index);
+                if (swiper.params && swiper.params.loop && typeof swiper.slideToLoop === "function") {
+                    swiper.slideToLoop(index);
+                } else {
+                    swiper.slideTo(config.centerStart + index);
+                }
             });
 
             pagination.appendChild(bullet);
@@ -511,7 +520,7 @@
 
         const {
             initialSlide = 0,
-            loop,
+            loop = false,
             loopedSlides,
             loopAdditionalSlides,
             pagination,
@@ -520,7 +529,7 @@
         } = options;
 
         const safeInitialSlide = config.originalCount > 1
-            ? config.centerStart + positiveModulo(initialSlide, config.originalCount)
+            ? positiveModulo(initialSlide, config.originalCount)
             : 0;
 
         const swiper = new Swiper(element, {
@@ -534,8 +543,9 @@
             slidesPerView: "auto",
             effect: "coverflow",
             watchSlidesProgress: true,
-            loop: false,
-            rewind: true,
+            loop,
+            rewind: !loop,
+            loopAdditionalSlides: loop ? Math.max(config.originalCount, 2) : 0,
             initialSlide: safeInitialSlide,
             keyboard: {
                 enabled: true,
@@ -625,7 +635,11 @@
             });
         });
 
-        createSeamlessSwiper(".lab-swiper", { initialSlide: 1, autoplay: false });
+        createSeamlessSwiper(".lab-swiper", {
+            initialSlide: 1,
+            loop: true,
+            autoplay: false
+        });
         createSeamlessSwiper(".hygiene-swiper", { initialSlide: 1 });
         createSeamlessSwiper(".assistant-swiper", { initialSlide: 1 });
         createSeamlessSwiper(".zfa-swiper", { initialSlide: 0 });
