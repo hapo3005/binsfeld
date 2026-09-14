@@ -1,9 +1,4 @@
-/* Homepage refinement: KISS-first, real content, no decorative card stack. */
-
-.home-page {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    background: #f8fbfe;
-}
+/* Homepage hero: the real team photo is the hero. Keep the composition simple. */
 
 .home-page .site-header {
     background: #fff;
@@ -17,46 +12,81 @@
 
 .home-intro {
     position: relative;
+    min-height: clamp(560px, 68svh, 760px);
+    padding: 0;
     overflow: hidden;
-    padding: clamp(42px, 5vw, 72px) 0 clamp(34px, 4vw, 56px);
-    background: #f8fbfe;
-}
-
-.home-intro::after {
-    content: "";
-    position: absolute;
-    right: -16vw;
-    bottom: -18vw;
-    width: 54vw;
-    aspect-ratio: 1;
-    border-radius: 50%;
-    background: rgba(220, 238, 248, 0.5);
-    pointer-events: none;
+    background: #082f49;
 }
 
 .home-intro-shell {
     position: relative;
-    z-index: 1;
-    width: min(100% - 72px, 1480px);
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: minmax(430px, 0.86fr) minmax(0, 1.14fr);
-    gap: clamp(42px, 5.5vw, 86px);
-    align-items: center;
+    width: 100%;
+    min-height: inherit;
+    margin: 0;
+    display: block;
+}
+
+.home-intro-media {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+    border-radius: 0;
+    background: #082f49;
+    box-shadow: none;
+}
+
+.home-intro-media::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 0;
+    background:
+        linear-gradient(90deg,
+            rgba(3, 20, 34, 0.78) 0%,
+            rgba(3, 20, 34, 0.58) 30%,
+            rgba(3, 20, 34, 0.26) 52%,
+            rgba(3, 20, 34, 0.04) 76%),
+        linear-gradient(0deg,
+            rgba(3, 20, 34, 0.66) 0%,
+            rgba(3, 20, 34, 0.10) 54%,
+            rgba(3, 20, 34, 0.02) 100%);
+    pointer-events: none;
+}
+
+.home-intro-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 43%;
 }
 
 .home-intro-copy {
-    max-width: 690px;
+    position: relative;
+    z-index: 1;
+    width: min(100% - 88px, 1480px);
+    min-height: inherit;
+    max-width: none;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+    padding: clamp(72px, 9vh, 118px) 0 clamp(48px, 6vh, 72px);
+    color: #fff;
 }
 
 .home-intro-kicker {
     display: inline-flex;
     align-items: center;
     gap: 12px;
-    margin-bottom: 18px;
-    color: #0758b8;
+    margin-bottom: 16px;
+    color: rgba(255, 255, 255, 0.88);
     font-size: 0.78rem;
-    font-weight: 800;
+    font-weight: 900;
     letter-spacing: 0.08em;
     text-transform: uppercase;
 }
@@ -65,34 +95,36 @@
     content: "";
     width: 42px;
     height: 2px;
-    background: #0758b8;
+    background: #fff;
 }
 
 .home-intro h1 {
+    max-width: 760px;
     margin: 0;
-    max-width: 680px;
-    color: #122338;
-    font-size: clamp(2.55rem, 4.35vw, 4.8rem);
-    font-weight: 800;
-    line-height: 0.99;
-    letter-spacing: -0.035em;
+    color: #fff;
+    font-size: clamp(2.75rem, 4.35vw, 4.75rem);
+    font-weight: 900;
+    line-height: 1.01;
+    letter-spacing: -0.025em;
     text-wrap: balance;
+    text-shadow: 0 4px 22px rgba(0, 0, 0, 0.28);
 }
 
 .home-intro-copy > p {
-    max-width: 610px;
-    margin: 24px 0 0;
-    color: #536278;
-    font-size: clamp(1.02rem, 1.25vw, 1.18rem);
-    font-weight: 500;
-    line-height: 1.65;
+    max-width: 640px;
+    margin: 20px 0 0;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: clamp(1rem, 1.25vw, 1.18rem);
+    font-weight: 600;
+    line-height: 1.58;
+    text-shadow: 0 3px 16px rgba(0, 0, 0, 0.22);
 }
 
 .home-intro-actions {
     display: flex;
     flex-wrap: wrap;
     gap: 12px;
-    margin-top: 30px;
+    margin-top: 28px;
 }
 
 .home-intro-actions .btn,
@@ -101,73 +133,39 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 0.78rem 1.35rem;
+    padding: 0.8rem 1.4rem;
     border-radius: 7px;
     font-size: 0.95rem;
-    font-weight: 800;
+    font-weight: 900;
 }
 
 .home-intro-actions .btn {
-    box-shadow: 0 12px 26px rgba(7, 88, 184, 0.19);
+    background: #0758b8;
+    border-color: #0758b8;
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.22);
+}
+
+.home-intro-actions .btn:hover {
+    background: #0867cf;
+    border-color: #0867cf;
 }
 
 .home-intro-secondary {
-    border: 1px solid rgba(7, 88, 184, 0.24);
-    background: transparent;
-    color: #0758b8;
+    border: 1px solid rgba(255, 255, 255, 0.72);
+    background: rgba(3, 20, 34, 0.16);
+    color: #fff;
+    backdrop-filter: blur(4px);
 }
 
 .home-intro-secondary:hover {
-    border-color: rgba(7, 88, 184, 0.48);
+    border-color: #fff;
     background: #fff;
+    color: #0758b8;
 }
 
+/* The hero already communicates the benefits. Do not turn it into a badge collection. */
 .home-intro-points {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px 0;
-    margin-top: 28px;
-    color: #334258;
-    font-size: 0.9rem;
-    font-weight: 700;
-}
-
-.home-intro-points span {
-    display: inline-flex;
-    align-items: center;
-}
-
-.home-intro-points span + span::before {
-    content: "";
-    width: 1px;
-    height: 18px;
-    margin: 0 14px;
-    background: rgba(7, 88, 184, 0.22);
-}
-
-.home-intro-media {
-    position: relative;
-    margin: 0;
-    overflow: hidden;
-    border-radius: 12px;
-    background: #e8f1f7;
-    box-shadow: 0 24px 58px rgba(11, 45, 72, 0.13);
-}
-
-.home-intro-media::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    box-shadow: inset 0 0 0 1px rgba(7, 88, 184, 0.08);
-    border-radius: inherit;
-    pointer-events: none;
-}
-
-.home-intro-media img {
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    object-fit: cover;
-    object-position: center 43%;
+    display: none;
 }
 
 .home-page .home-info-strip {
@@ -199,43 +197,21 @@
 }
 
 .home-page .home-quicklinks {
-    padding-top: clamp(34px, 4vw, 54px);
+    padding-top: clamp(32px, 3.8vw, 50px);
     box-shadow: none;
 }
 
 @media (max-width: 1199px) {
-    .home-intro-shell {
-        width: min(100% - 44px, 980px);
-        grid-template-columns: minmax(350px, 0.92fr) minmax(0, 1.08fr);
-        gap: 36px;
+    .home-intro {
+        min-height: clamp(540px, 64svh, 690px);
     }
 
-    .home-intro h1 {
-        font-size: clamp(2.35rem, 5vw, 3.6rem);
+    .home-intro-copy {
+        width: min(100% - 52px, 980px);
     }
 
     .home-page .home-info-inner {
         width: min(100% - 44px, 980px);
-    }
-}
-
-@media (max-width: 900px) {
-    .home-intro {
-        padding-top: 38px;
-    }
-
-    .home-intro-shell {
-        width: min(100% - 36px, 760px);
-        grid-template-columns: 1fr;
-        gap: 30px;
-    }
-
-    .home-intro-copy {
-        max-width: 680px;
-    }
-
-    .home-intro-media img {
-        aspect-ratio: 16 / 9;
     }
 }
 
@@ -246,39 +222,51 @@
     }
 
     .home-intro {
-        padding: 30px 0 24px;
+        min-height: 640px;
     }
 
-    .home-intro::after {
-        display: none;
+    .home-intro-media::after {
+        background:
+            linear-gradient(0deg,
+                rgba(3, 20, 34, 0.86) 0%,
+                rgba(3, 20, 34, 0.64) 38%,
+                rgba(3, 20, 34, 0.14) 70%,
+                rgba(3, 20, 34, 0.03) 100%);
     }
 
-    .home-intro-shell {
+    .home-intro-media img {
+        object-position: 54% center;
+    }
+
+    .home-intro-copy {
         width: calc(100% - 28px);
-        gap: 24px;
+        padding: 120px 0 28px;
     }
 
     .home-intro-kicker {
-        margin-bottom: 14px;
-        font-size: 0.72rem;
+        margin-bottom: 12px;
+        font-size: 0.7rem;
     }
 
     .home-intro-kicker::before {
-        width: 30px;
+        width: 28px;
     }
 
     .home-intro h1 {
-        font-size: clamp(2.15rem, 10.5vw, 3rem);
-        line-height: 1.01;
+        max-width: 100%;
+        font-size: clamp(2.05rem, 10vw, 2.85rem);
+        line-height: 1.02;
     }
 
     .home-intro-copy > p {
-        margin-top: 18px;
-        font-size: 1rem;
-        line-height: 1.55;
+        max-width: 34rem;
+        margin-top: 16px;
+        font-size: 0.98rem;
+        line-height: 1.5;
     }
 
     .home-intro-actions {
+        width: 100%;
         display: grid;
         grid-template-columns: 1fr;
         margin-top: 22px;
@@ -290,38 +278,18 @@
         min-height: 52px;
     }
 
-    .home-intro-points {
-        display: grid;
-        gap: 7px;
-        margin-top: 22px;
-        font-size: 0.88rem;
-    }
-
-    .home-intro-points span + span::before {
-        display: none;
-    }
-
-    .home-intro-points span::before {
-        content: "";
-        width: 7px;
-        height: 7px;
-        margin-right: 9px;
-        border-radius: 50%;
-        background: #0758b8;
-    }
-
-    .home-intro-media {
-        border-radius: 9px;
-        box-shadow: 0 16px 34px rgba(11, 45, 72, 0.11);
-    }
-
-    .home-intro-media img {
-        aspect-ratio: 4 / 3;
-        object-position: 52% 43%;
-    }
-
     .home-page .home-info-inner {
         width: calc(100% - 28px);
+    }
+}
+
+@media (max-width: 390px) {
+    .home-intro {
+        min-height: 610px;
+    }
+
+    .home-intro h1 {
+        font-size: 1.95rem;
     }
 }
 
@@ -329,7 +297,6 @@
     .home-intro *,
     .home-intro *::before,
     .home-intro *::after {
-        scroll-behavior: auto !important;
         transition: none !important;
     }
 }
